@@ -1,5 +1,9 @@
+import 'package:bmi_calculator/calculator_brain.dart';
+import 'package:bmi_calculator/handy_button.dart';
 import 'package:bmi_calculator/icon_content.dart';
+import 'package:bmi_calculator/result_screen.dart';
 import 'package:bmi_calculator/reusable.dart';
+import 'package:bmi_calculator/reusable_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,6 +21,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Color femaleColor = inactiveColor;
   Color maleColor = inactiveColor;
   int height = 180;
+  int weight = 60;
+  int age = 20;
   Gender selectedGender;
 
   @override
@@ -76,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Text(
                     'HEIGHT',
-                    style: kTextstyle,
+                    style: kTextStyle,
                   ),
                   SizedBox(
                     height: 5,
@@ -88,12 +94,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       Text(
                         height.toString(),
-                        style: TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.w900),
+                        style: kNumberStyle,
                       ),
                       Text(
                         ' cm.',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 30),
                       )
                     ],
                   ),
@@ -118,30 +123,122 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: ReusableCard(
                     color: activeColor,
+                    cardChild: Column(
+                      children: [
+                        Text(
+                          'WEIGHT',
+                          style: kTextStyle,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: kNumberStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ReusableButton(
+                              heroTag: 'btnWeightPLus',
+                              icon: FontAwesomeIcons.plus,
+                              onPress: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            ReusableButton(
+                              heroTag: 'btnWeightMinus',
+                              icon: FontAwesomeIcons.minus,
+                              onPress: () {
+                                setState(() {
+                                  if (weight > 1) {
+                                    weight--;
+                                  }
+                                });
+                              },
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
                     color: activeColor,
+                    cardChild: Column(
+                      children: [
+                        Text(
+                          'AGE',
+                          style: kTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kNumberStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ReusableButton(
+                              heroTag: 'btnAgePLus',
+                              icon: FontAwesomeIcons.plus,
+                              onPress: () {
+                                setState(
+                                  () {
+                                    if (age < 120) {
+                                      age++;
+                                    }
+                                  },
+                                );
+                              },
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            ReusableButton(
+                              heroTag: 'btnAgeMinus',
+                              icon: FontAwesomeIcons.minus,
+                              onPress: () {
+                                setState(
+                                  () {
+                                    if (age > 1) {
+                                      age--;
+                                    }
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.all(10),
-            width: double.infinity,
-            child: Center(
-              child: Text(
-                'Calculate',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              ),
-            ),
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.redAccent,
-              borderRadius: BorderRadius.circular(30),
-            ),
+          HandyButton(
+            text: 'Calculate',
+            onTap: () {
+              CalculatorBrain calBrain =
+                  CalculatorBrain(height: height, weight: weight);
+              String bmiResult = calBrain.calculateBMI();
+              String resultText = calBrain.getResult();
+              String advice = calBrain.getAdvice();
+
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => ResultScreen(
+                    resultText: resultText,
+                    bmiResult: bmiResult,
+                    advice: advice,
+                  ),
+                ),
+              );
+            },
           )
         ],
       ),
