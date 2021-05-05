@@ -1,14 +1,14 @@
 import 'package:bmi_calculator/calculator_brain.dart';
-import 'package:bmi_calculator/handy_button.dart';
-import 'package:bmi_calculator/icon_content.dart';
-import 'package:bmi_calculator/result_screen.dart';
-import 'package:bmi_calculator/reusable.dart';
-import 'package:bmi_calculator/reusable_button.dart';
+import 'package:bmi_calculator/component/handy_button.dart';
+import 'package:bmi_calculator/component/icon_content.dart';
+import 'package:bmi_calculator/screen/result_screen.dart';
+import 'package:bmi_calculator/component/reusable.dart';
+import 'package:bmi_calculator/component/reusable_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'constants.dart';
+import '../component/constants.dart';
 
 enum Gender { male, female }
 
@@ -221,6 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           HandyButton(
             text: 'Calculate',
+            color: Colors.blue,
             onTap: () {
               CalculatorBrain calBrain =
                   CalculatorBrain(height: height, weight: weight);

@@ -1,6 +1,6 @@
-import 'package:bmi_calculator/constants.dart';
-import 'package:bmi_calculator/handy_button.dart';
-import 'package:bmi_calculator/reusable.dart';
+import 'package:bmi_calculator/component/constants.dart';
+import 'package:bmi_calculator/component/handy_button.dart';
+import 'package:bmi_calculator/component/reusable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -63,6 +63,7 @@ class ResultScreen extends StatelessWidget {
             ),
           ),
           HandyButton(
+            color: Colors.orange,
             text: 'Recalculate',
             onTap: () {
               Navigator.pop(context);

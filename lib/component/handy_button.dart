@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class HandyButton extends StatefulWidget {
-  HandyButton({this.text, this.onTap});
+  HandyButton({this.text, this.onTap, this.color});
 
   final String text;
   final Function onTap;
+  final Color color;
 
   @override
   _HandyButtonState createState() => _HandyButtonState();
@@ -26,7 +27,7 @@ class _HandyButtonState extends State<HandyButton> {
         ),
         height: 80,
         decoration: BoxDecoration(
-          color: Colors.redAccent,
+          color: widget.color,
           borderRadius: BorderRadius.circular(30),
         ),
       ),
